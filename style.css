@@ -1,0 +1,67 @@
+:root {
+	--t_Black: rgba(0, 0, 0, 1);
+	--t_Blue: rgba(73, 200, 244, 1); /* #49c8f4 */
+	--t_Gray: rgba(30, 30, 30, .7); /* #3e3e3d */
+	--t_Green: rgba(39, 204, 198, 1); /*27ccc6 */
+	--t_Orange: rgba(229, 141, 31, 1); /* #e58d1f */
+	--t_Red: rgba(216, 51, 57, 1); /* #d83339 */
+	--t_White: rgba(229, 228, 224, 1); /* #e5e4e0 */
+}
+
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	background-color: var(--t_Gray);
+	height: 100vh;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+	color: var(--t_White);
+}
+
+ul {
+	list-style-type: none;
+}
+
+.container {
+	backdrop-filter: blur(10px);
+	box-shadow: inset 0 0 16px rgba(0, 0, 0, 1);
+	color: var(--t_White);
+	display: grid;
+	font-family: monospace;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: .5fr 1fr;
+	height: 100vh;
+}
+
+/* handle "terminal" like effect */
+@keyframes blinkCursor {
+	0%	{content: "";}
+	100%	{content: "_";}
+}
+
+#icon {
+	height: auto;
+	width: 1em;
+}
+
+.navigation a:hover {
+	color: var(--t_Blue);
+}
+
+.navigation a:hover::before {
+	content: "> ";
+}
+.navigation a:hover::after {
+	content: "_";
+	animation-name: blinkCursor;
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
