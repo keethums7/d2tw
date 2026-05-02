@@ -1,8 +1,9 @@
 :root {
 	--t_Black: rgba(30, 30, 46, 1); /* #1e1e2e */
 	--t_Blue: rgba(73, 200, 244, 1); /* #49c8f4 */
-	--t_Gray: rgba(30, 30, 30, .7); /* #3e3e3d */
+	--t_DarkGray: rgba(30, 30, 30, 1); /* #3e3e3d */
 	--t_Green: rgba(39, 204, 198, 1); /* #27ccc6 */
+	--t_LightGray: rgba(115, 121, 148, 1); /* #737994 */
 	--t_Orange: rgba(229, 141, 31, 1); /* #e58d1f */
 	--t_Red: rgba(216, 51, 57, 1); /* #d83339 */
 	--t_White: rgba(229, 228, 224, 1); /* #e5e4e0 */
@@ -29,6 +30,10 @@ ul {
 	list-style-type: none;
 }
 
+.bolder {
+	font-weight: bolder;
+}
+
 .color {
 	color: var(--t_Blue);
 	font-weight: bold;
@@ -50,27 +55,32 @@ ul {
 	100%	{content: "_";}
 }
 
+.highlighted {
+	color: var(--t_Red);
+}
+
+.highlighted::before {
+	content: "> ";
+}
+
+.highlighted::after {
+	content: "_";
+	animation-name: blinkCursor;
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
 .icon {
 	filter: invert(30%) sepia(60%) saturate(663%) hue-rotate(163deg) brightness(95%) contrast(102%);
 	height: auto;
 	width: 1.2em;
 }
 
+.item {
+	font-size: 1.2em;
+}
+
 .logo {
 	filter: drop-shadow(0 0 1px black); 
-}
-
-.navigation a:hover {
-	color: var(--t_Red);
-}
-
-.navigation a:hover::before {
-	content: "> ";
-}
-.navigation a:hover::after {
-	content: "_";
-	animation-name: blinkCursor;
-	animation-duration: 1.2s;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
 }
