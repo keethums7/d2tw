@@ -92,6 +92,7 @@ function setNavigation() {
       // handle index updating intelligently
       switch (e.key) {
         case "k":
+        case "K":
         case "ArrowUp":
           if (i > 0) {
             clearList();
@@ -100,6 +101,7 @@ function setNavigation() {
           }
           break;
         case "j":
+        case "J":
         case "ArrowDown":
           if (i < navArray.length - 1) {
             clearList();
