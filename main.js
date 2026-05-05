@@ -53,22 +53,24 @@ function setUptime() {
 // this also expands the hidden block for the highlighted
 // navigation element
 function setNavigation() {
+  // pull the array of navigation elements
+  // start with the first element highlighted
+  let navList = document.querySelectorAll(".navigation");
+
   let clearList = () => {
     navList.forEach((elem) => {
       // ensure other navigation elements stop being highlighted
       elem.classList.remove("highlighted");
     });
   };
-  // pull the array of navigation elements
-  // start with the first element highlighted
-  let navList = document.querySelectorAll(".navigation");
-  navList[0].classList.toggle("highlighted");
+
+  navList[0].classList.add("highlighted");
 
   // cast to array from the nodeList
   // and begin tracking the index
   // of the higlighted element
   let navArray = [...navList];
-  let i = 0;
+  let index = 0;
   console.log(navArray);
 
   // add events to keep terminal cursor effect
@@ -77,42 +79,53 @@ function setNavigation() {
     // highlight onclick
     nav.addEventListener("click", (e) => {
       e.preventDefault();
-      i = navArray.indexOf(nav);
+      index = navArray.indexOf(nav);
       clearList();
       // now add the highlighted class to the target element
       nav.classList.add("highlighted");
     });
+  });
 
-    // repeat for navigating with the keyboard
-    // as an easter egg for the user
-    nav.addEventListener("keydown", (e) => {
-      // and find the index of the current highlight
-      e.preventDefault();
+  // add arrow, WASD, and Vim keybinding navigation
+  // as an easter-egg for the nerds
+  // also - using window instead of nav elem as root due to
+  // keydown requiring focus
+  window.addEventListener("keydown", (e) => {
+    // and find the index of the current highlight
+    e.preventDefault();
 
-      // handle index updating intelligently
-      switch (e.key) {
-        case "k":
-        case "K":
-        case "ArrowUp":
-          if (i > 0) {
-            clearList();
-            i--;
-            navList[i].classList.add("highlighted");
-          }
-          break;
-        case "j":
-        case "J":
-        case "ArrowDown":
-          if (i < navArray.length - 1) {
-            clearList();
-            i++;
-            navList[i].classList.add("highlighted");
-          }
-          break;
-        default:
-          break;
-      }
-    });
+    // handle index updating intelligently
+    switch (e.key) {
+      case "k":
+      case "K":
+      case "w":
+      case "W":
+      case "ArrowUp":
+        // upper boundary
+        console.log(`key: ${e.key}, index: ${index}`);
+        if (index > 0) {
+          clearList();
+          index--;
+          navList[index].classList.add("highlighted");
+        }
+        break;
+      case "j":
+      case "J":
+      case "s":
+      case "S":
+      case "ArrowDown":
+        // lower boundary
+        console.log(`key: ${e.key}, index: ${index}`);
+        if (index < navArray.length - 1) {
+          clearList();
+          index++;
+          navList[index].classList.add("highlighted");
+        }
+        break;
+      default:
+        console.log(`key: ${e.key}, index: ${index}`);
+        break;
+    }
   });
 }
 
