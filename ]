@@ -2,7 +2,8 @@
 
 // colorizes the logo based on colorscheme
 // outlined within the function
-function setAsciiColor(scheme = "default") {
+function setAsciiColor(scheme) {
+  scheme = scheme || "default";
   // grab ascii logo and create slices
   const d2tw = `
     ::########:.  .:######:..
@@ -32,12 +33,12 @@ function setAsciiColor(scheme = "default") {
   ];
 
   const colorSchemes = {
-    "default": {
-      "d2": "white",
-      "handle": "blue",
-      "parts": "lightGray",
-      "tip": "lightGray",
-      "tw": "red",
+    default: {
+      d2: "white",
+      handle: "blue",
+      parts: "lightGray",
+      tip: "lightGray",
+      tw: "red",
     },
   };
 
@@ -46,11 +47,11 @@ function setAsciiColor(scheme = "default") {
   let spans = [];
 
   // iterate through "sections"
-  for (let i of ascii) {
+  for (let i in ascii) {
     // iterate through each substring of the section
     let span = document.createElement("span");
     span.innerHTML = i.text;
-    span.className = colorSchemes[scheme][i.type];
+    span.className = colorSchemes.scheme[i.type];
 
     spans.push(span);
   }
@@ -134,6 +135,7 @@ function setNavigation() {
   // of the higlighted element
   let navArray = [...navList];
   let index = 0;
+  console.log(navArray);
 
   // add events to keep terminal cursor effect
   // in place even when user focuses elsewhere
