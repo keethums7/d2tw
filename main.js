@@ -26,18 +26,57 @@ function setAsciiColor(scheme = "default") {
 
   const ascii = [
     { type: "d2", text: d2tw.substring(0, 90) },
-    { type: "d2", text: d2tw.substring(111, 150) },
-    { type: "d2", text: d2tw.substring(91, 110) },
-    { type: "d2", text: d2tw.substring(151, 162) },
+    { type: "handle", text: d2tw.substring(90, 105) },
+    { type: "cable", text: d2tw.substring(105, 110) },
+    { type: "d2", text: d2tw.substring(110, 139) },
+    { type: "handle", text: d2tw.substring(139, 155) },
+    { type: "cable", text: d2tw.substring(155, 160) },
+    { type: "d2", text: d2tw.substring(160, 190) },
+    { type: "handle", text: d2tw.substring(190, 204) },
+    { type: "cable", text: d2tw.substring(204, 212) },
+    { type: "d2", text: d2tw.substring(212, 241) },
+    { type: "handle", text: d2tw.substring(241, 254) },
+    { type: "cable", text: d2tw.substring(254, 265) },
+    { type: "d2", text: d2tw.substring(265, 292) },
+    { type: "handle", text: d2tw.substring(292, 305) },
+    { type: "cable", text: d2tw.substring(305, 318) },
+    { type: "d2", text: d2tw.substring(318, 341) },
+    { type: "space", text: d2tw.substring(341, 348) },
+    { type: "handle", text: d2tw.substring(348, 355) },
+    { type: "space", text: d2tw.substring(355, 376) },
+    { type: "d2", text: d2tw.substring(376, 398) },
+    { type: "tw", text: d2tw.substring(398, 435) },
+    { type: "d2", text: d2tw.substring(435, 459) },
+    { type: "tw", text: d2tw.substring(459, 494) },
+    { type: "d2", text: d2tw.substring(494, 518) },
+    { type: "tw", text: d2tw.substring(518, 552) },
+    { type: "handle", text: d2tw.substring(552, 579) },
+    { type: "tw", text: d2tw.substring(579, 610) },
+    { type: "lead", text: d2tw.substring(610, 630) },
+    { type: "handle", text: d2tw.substring(630, 635) },
+    { type: "tw", text: d2tw.substring(635, 668) },
+    { type: "lead", text: d2tw.substring(668, 691) },
+    { type: "tw", text: d2tw.substring(691, 727) },
+    { type: "lead", text: d2tw.substring(727, 748) },
+    { type: "tw", text: d2tw.substring(748, 784) },
+    { type: "tip", text: d2tw.substring(784, 801) },
+    { type: "lead", text: d2tw.substring(801, 804) },
+    { type: "tw", text: d2tw.substring(804, 842) },
+    { type: "tip", text: d2tw.substring(842, 857) },
+    { type: "tw", text: d2tw.substring(857, 900) },
+    { type: "tip", text: d2tw.substring(900, 913) },
+    { type: "tw", text: d2tw.substring(913, 958) },
   ];
 
   const colorSchemes = {
-    "default": {
-      "d2": "white",
-      "handle": "blue",
-      "parts": "lightGray",
-      "tip": "lightGray",
-      "tw": "red",
+    default: {
+      d2: "white",
+      handle: "blue",
+      cable: "lightGray",
+      tip: "white",
+      lead: "lightGray",
+      space: "orange",
+      tw: "red",
     },
   };
 
@@ -76,7 +115,7 @@ function setUptime() {
 
     let difference = secondDate - firstDate;
     const results = [];
-    timeUnits.some(function(unit) {
+    timeUnits.some(function (unit) {
       const name = unit[0];
       const divider = unit[1];
       const value = Math.floor(difference / divider);
