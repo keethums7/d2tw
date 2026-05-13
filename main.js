@@ -4,7 +4,7 @@
 // outlined within the function
 function setAsciiColor() {
   // check theme
-  let theme = "light";
+  let theme = "dark" || "light";
 
   // grab ascii logo and create slices
   const d2tw = `
