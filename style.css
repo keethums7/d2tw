@@ -1,43 +1,117 @@
 :root {
-	--t_Black: rgba(30, 30, 46, 1);  	/* #1e1e2e */
-	--t_Blue: rgba(73, 200, 244, 1); 	/* #49c8f4 */
-	--t_DarkGray: rgba(30, 30, 30, 1); 	/* #3e3e3d */
-	--t_Green: rgba(39, 204, 198, 1); 	/* #27ccc6 */
-	--t_LightGray: rgba(115, 121, 148, 1); 	/* #737994 */
-	--t_Orange: rgba(229, 141, 31, 1); 	/* #e58d1f */
-	--t_Red: rgba(216, 51, 57, 1); 		/* #d83339 */
-	--t_White: rgba(229, 228, 224, 1); 	/* #e5e4e0 */
+	--t_black: rgba(30, 30, 46, 1);  	/* #1e1e2e */
+	--t_blue: rgba(73, 200, 244, 1); 	/* #49c8f4 */
+	--t_darkBlue: rgba(0, 70, 255, 1); 	/* #4974f4 */
+	--t_darkGray: rgba(80, 80, 70, 1); 	/* #3e3e3d */
+	--t_green: rgba(38, 204, 115, 1); 	/* #26cc73 */
+	--t_lightGray: rgba(210, 210, 220, 1); 	/* #737994 */
+	--t_lightRed: rgba(216, 51, 57, 0.5);   /* #d83339 */
+	--t_orange: rgba(229, 141, 31, 1); 	/* #e58d1f */
+	--t_red: rgba(216, 51, 57, 1); 		/* #d83339 */
+	--t_white: rgba(255, 255, 255, 1); 	/* #e5e4e0 */
 }
 
 
 .black {
-	color: var(--t_Black);
+	color: var(--t_black);
 }
-.blue {
-	color: var(--t_Blue);
+.black-bg {
+	background-color: var(--t_black);
 }
-.darkGray {
-	color: var(--t_DarkGray);
-}
-.green {
-	color: var(--t_Green);
-}
-.lightGray {
-	color: var(--t_LightGray);
-}
-.orange {
-	color: var(--t_Orange);
-}
-.red {
-	color: var(--t_Red);
-}
-.white {
-	color: var(--t_White);
+.black-filter {
+	filter: invert(8%) sepia(17%) saturate(1544%) hue-rotate(201deg) brightness(94%) contrast(90%);
 }
 
-img.blue {
-	filter: invert(30%) sepia(60%) saturate(663%) hue-rotate(163deg) brightness(95%) contrast(102%);
+.blue {
+	color: var(--t_blue);
 }
+.blue-bg {
+	background-color: var(--t_blue);
+}
+.blue-filter {
+	filter: invert(55%) sepia(20%) saturate(6050%) hue-rotate(164deg) brightness(100%) contrast(200%);
+}
+
+.darkBlue {
+	color: var(--t_darkBlue);
+}
+.darkBlue-bg {
+	background-color: var(--t_darkBlue);
+}
+.darkBlue-filter {
+	filter: invert(35%) sepia(90%) saturate(1021%) hue-rotate(200deg) brightness(100%) contrast(91%);
+}
+
+.darkGray {
+	color: var(--t_darkGray);
+}
+.darkGray-bg {
+	background-color: var(--t_darkGray);
+}
+.darkGray-filter {
+	filter: invert(21%) sepia(7%) saturate(107%) hue-rotate(21deg) brightness(91%) contrast(83%);
+}
+
+.green {
+	color: var(--t_green);
+}
+.green-bg {
+	background-color: var(--t_green);
+}
+.green-filter {
+	filter: invert(62%) sepia(76%) saturate(446%) hue-rotate(95deg) brightness(91%) contrast(89%);
+}
+
+.lightGray {
+	color: var(--t_lightGray);
+}
+.lightGray-bg {
+	background-color: var(--t_lightGray);
+}
+.lightGray-filter {
+	filter: invert(52%) sepia(10%) saturate(855%) hue-rotate(192deg) brightness(90%) contrast(85%);
+}
+
+.lightRed {
+	color: var(--t_lightRed);
+}
+.lightRed-bg {
+	background-color: var(--t_lightRed);
+}
+.lightRed-filter {
+	filter: invert(21%) sepia(70%) saturate(3526%) hue-rotate(345deg) brightness(93%) contrast(81%);
+}
+
+.orange {
+	color: var(--t_orange);
+}
+.orange-bg {
+	background-color: var(--t_orange);
+}
+.orange-filter {
+	filter: invert(55%) sepia(89%) saturate(442%) hue-rotate(352deg) brightness(92%) contrast(94%);
+}
+
+.red {
+	color: var(--t_red);
+}
+.red-bg {
+	background-color: var(--t_red);
+}
+.red-filter {
+	filter: invert(21%) sepia(70%) saturate(3526%) hue-rotate(345deg) brightness(93%) contrast(81%);
+}
+
+.white {
+	color: var(--t_white);
+}
+.white-bg {
+	background-color: var(--t_white);
+}
+.white-filter{
+	filter: invert(98%) sepia(1%) saturate(1684%) hue-rotate(325deg) brightness(103%) contrast(80%);
+}
+
 
 * {
 	box-sizing: border-box;
@@ -45,31 +119,22 @@ img.blue {
 
 html,
 body {
-	background-color: var(--t_Black);
+	font-family: 'Courier New', monospace;
 	height: 100vh;
 	margin: 0;
 }
 
 a {
 	text-decoration: none;
-	color: var(--t_White);
 }
 
 ul {
 	list-style-type: none;
 }
 
-.asciiLogo {}
-
-.bolder {
-	font-weight: bolder;
-}
-
 .container {
 	box-shadow: inset 0 0 16px rgba(0, 0, 0, 1);
-	color: var(--t_White);
 	display: grid;
-	font-family: monospace;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: .5fr 1fr;
 	height: 100%;
@@ -83,7 +148,8 @@ ul {
 
 
 .highlighted {
-	color: var(--t_Red);
+	color: var(--t_red);
+	font-weight: bolder;
 }
 
 .highlighted::before {
@@ -104,9 +170,8 @@ ul {
 }
 
 .item {
-	font-size: 1.2em;
 }
 
 .logo {
-	filter: drop-shadow(0 0 1px black); 
+	margin-left: 5%;
 }

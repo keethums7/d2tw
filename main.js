@@ -2,7 +2,10 @@
 
 // colorizes the logo based on colorscheme
 // outlined within the function
-function setAsciiColor(scheme = "default") {
+function setAsciiColor() {
+  // check theme
+  let theme = "light";
+
   // grab ascii logo and create slices
   const d2tw = `
     ::########:.  .:######:..
@@ -47,7 +50,9 @@ function setAsciiColor(scheme = "default") {
     { type: "d2", text: d2tw.substring(376, 398) },
     { type: "tw", text: d2tw.substring(398, 435) },
     { type: "d2", text: d2tw.substring(435, 459) },
-    { type: "tw", text: d2tw.substring(459, 494) },
+    { type: "tw", text: d2tw.substring(459, 463) },
+    { type: "handle", text: d2tw.substring(463, 464) },
+    { type: "tw", text: d2tw.substring(464, 494) },
     { type: "d2", text: d2tw.substring(494, 518) },
     { type: "tw", text: d2tw.substring(518, 552) },
     { type: "handle", text: d2tw.substring(552, 579) },
@@ -68,20 +73,39 @@ function setAsciiColor(scheme = "default") {
     { type: "tw", text: d2tw.substring(913, 958) },
   ];
 
-  const colorSchemes = {
-    default: {
+  const themes = {
+    dark: {
+      a: "white",
+      bg: "black-bg",
+      cable: "darkGray",
+      container: "black-bg",
       d2: "white",
+      val: "white",
+      key: "blue",
       handle: "blue",
-      cable: "lightGray",
+      lead: "darkGray",
+      space: "lightRed",
+      tip: "lightGray",
+      tw: "red",
+    },
+    light: {
+      a: "black",
+      bg: "lightGray-bg",
+      cable: "darkGray",
+      container: "lightGray-bg",
+      d2: "darkGray",
+      val: "black",
+      key: "darkBlue",
+      handle: "darkBlue",
+      lead: "black",
+      space: "lightRed",
       tip: "white",
-      lead: "lightGray",
-      space: "orange",
       tw: "red",
     },
   };
 
   // prep to replace the <pre/> element with colorized text
-  let logo = document.querySelector(".asciiLogo");
+  let logo = document.querySelector(".logo");
   let spans = [];
 
   // iterate through "sections"
@@ -89,12 +113,41 @@ function setAsciiColor(scheme = "default") {
     // iterate through each substring of the section
     let span = document.createElement("span");
     span.innerHTML = i.text;
-    span.className = colorSchemes[scheme][i.type];
-
+    span.className = themes[theme][i.type];
+    span.style.fontWeight = "bold";
     spans.push(span);
   }
 
   logo.replaceChildren(...spans);
+
+  // update the other portions of the site to match the theme
+  let bg = document.querySelector("body");
+  let html = document.querySelector("html");
+  bg.classList.add(themes[theme]["bg"]);
+  html.classList.add(themes[theme]["bg"]);
+
+  let aList = document.querySelectorAll("a");
+  let containerList = document.querySelectorAll(".container");
+  let iconList = document.querySelectorAll(".icon");
+  let keyList = document.querySelectorAll(".key");
+  let valList = document.querySelectorAll(".val");
+
+  for (let elem of aList) {
+    elem.classList.add(themes[theme]["a"]);
+  }
+  for (let elem of containerList) {
+    elem.classList.add(themes[theme]["container"]);
+  }
+  for (let elem of iconList) {
+    elem.classList.add(`${themes[theme]["key"]}-filter`);
+  }
+  for (let elem of keyList) {
+    elem.classList.add(themes[theme]["key"]);
+    elem.style.fontWeight = "bolder";
+  }
+  for (let elem of valList) {
+    elem.classList.add(themes[theme]["val"]);
+  }
 }
 
 // test lines below
@@ -115,7 +168,9 @@ function setUptime() {
 
     let difference = secondDate - firstDate;
     const results = [];
-    timeUnits.some(function (unit) {
+    timeUnits.some((unit) => {
+      // compares each unit above in milliseconds
+      // with the time difference between the two dates
       const name = unit[0];
       const divider = unit[1];
       const value = Math.floor(difference / divider);
@@ -193,7 +248,6 @@ function setNavigation() {
   // keydown requiring focus
   window.addEventListener("keydown", (e) => {
     // and find the index of the current highlight
-    e.preventDefault();
 
     // handle index updating intelligently
     switch (e.key) {
@@ -202,8 +256,9 @@ function setNavigation() {
       case "w":
       case "W":
       case "ArrowUp":
+        e.preventDefault();
+
         // upper boundary
-        console.log(`key: ${e.key}, index: ${index}`);
         if (index > 0) {
           clearList();
           index--;
@@ -215,8 +270,9 @@ function setNavigation() {
       case "s":
       case "S":
       case "ArrowDown":
+        e.preventDefault();
+
         // lower boundary
-        console.log(`key: ${e.key}, index: ${index}`);
         if (index < navArray.length - 1) {
           clearList();
           index++;
@@ -224,7 +280,6 @@ function setNavigation() {
         }
         break;
       default:
-        console.log(`key: ${e.key}, index: ${index}`);
         break;
     }
   });
