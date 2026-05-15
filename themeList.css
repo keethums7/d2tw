@@ -1,0 +1,8 @@
+/* Import custom colors sheet */
+@import "./themes/colors.css";
+
+/* Update theme list here
+* from the themes directory
+* for tidiness */
+@import "./themes/light.css";
+@import "./themes/dark.css";

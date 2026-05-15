@@ -1,0 +1,40 @@
+/* default light */
+html.light, 
+html.light body { 
+	background-color:  var(--_lightGray);
+}
+
+html.light .cable {
+	color: var(--_darkGray);
+}
+
+html.light .container {
+	color: var(--_lightGray);
+}
+html.light .d2 {
+	color: var(--_darkGray);
+}
+html.light .lead,  
+html.light .val,
+html.light a {
+	color: var(--_black);
+}
+
+html.light svg,
+html.light .key,
+html.light .handle,  
+html.light .highlighted {
+	color: var(--_darkBlue);
+}
+
+html.light .space {  
+	color: var(--_lightRed);
+}
+
+html.light .tip{
+	color: var(--_white);
+}
+
+html.light .tw{  
+	color: var(--_red);
+}

@@ -1,0 +1,13 @@
+/* custom colors */
+:root {
+	--_black: rgba(30, 30, 46, 1);  	/* #1e1e2e */
+	--_blue: rgba(73, 200, 244, 1); 	/* #49c8f4 */
+	--_darkBlue: rgba(0, 70, 255, 1); 	/* #4974f4 */
+	--_darkGray: rgba(80, 80, 70, 1); 	/* #3e3e3d */
+	--_green: rgba(38, 204, 115, 1); 	/* #26cc73 */
+	--_lightGray: rgba(170, 170, 180, 1); 	/* #737994 */
+	--_lightRed: rgba(216, 51, 57, 0.5);   /* #d83339 */
+	--_orange: rgba(229, 141, 31, 1); 	/* #e58d1f */
+	--_red: rgba(216, 51, 57, 1); 		/* #d83339 */
+	--_white: rgba(255, 255, 255, 1); 	/* #e5e4e0 */
+}

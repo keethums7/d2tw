@@ -1,0 +1,39 @@
+/* default dark */
+html.dark,
+html.dark body {
+	background-color: var(--_black);
+}
+
+html.dark .cable, 
+html.dark .lead {
+	color: var(--_darkGray);
+}
+
+html.dark .d2,
+html.dark .val,
+html.dark a {   
+	color: var(--_white);
+}
+
+html.dark svg,
+html.dark .key,
+html.dark .handle {
+	color: var(--_blue);
+}
+
+html.dark .container {
+	color: var(--_black);
+}
+
+html.dark .space {
+	color: var(--_lightRed);
+}
+
+html.dark .tip {
+	color: var(--_lightGray);
+}
+
+html.dark .highlighted,
+html.dark .tw {
+	color: var(--_red);
+}

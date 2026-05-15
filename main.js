@@ -1,11 +1,27 @@
 "use strict";
 
+function checkTheme() {
+  const savedTheme = localStorage.getItem("theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (e) => {
+      if (!localStorage.getItem("theme")) {
+        // Only if no user override
+        const newTheme = e.matches ? "dark" : "light";
+        document.documentElement.classList.remove("light", "dark");
+        document.documentElement.classList.add(newTheme);
+      }
+    });
+
+  return initialTheme;
+}
+
 // colorizes the logo based on colorscheme
 // outlined within the function
-function setAsciiColor() {
-  // check theme
-  let theme = "dark" || "light";
-
+function setAsciiColor(theme) {
   // grab ascii logo and create slices
   const d2tw = `
     ::########:.  .:######:..
@@ -27,6 +43,12 @@ function setAsciiColor() {
            .+*               +=***+:      =*****  .*****-
          .+*                 :*****+      .*****   -****-`;
 
+  /*
+   * will try to rework at some point
+   * but since it's building a string in sequence
+   * may be difficult to fit into an object or other
+   * less verbose structure
+   */
   const ascii = [
     { type: "d2", text: d2tw.substring(0, 90) },
     { type: "handle", text: d2tw.substring(90, 105) },
@@ -73,37 +95,6 @@ function setAsciiColor() {
     { type: "tw", text: d2tw.substring(913, 958) },
   ];
 
-  const themes = {
-    dark: {
-      a: "white",
-      bg: "black-bg",
-      cable: "darkGray",
-      container: "black-bg",
-      d2: "white",
-      val: "white",
-      key: "blue",
-      handle: "blue",
-      lead: "darkGray",
-      space: "lightRed",
-      tip: "lightGray",
-      tw: "red",
-    },
-    light: {
-      a: "black",
-      bg: "lightGray-bg",
-      cable: "darkGray",
-      container: "lightGray-bg",
-      d2: "darkGray",
-      val: "black",
-      key: "darkBlue",
-      handle: "darkBlue",
-      lead: "black",
-      space: "lightRed",
-      tip: "white",
-      tw: "red",
-    },
-  };
-
   // prep to replace the <pre/> element with colorized text
   let logo = document.querySelector(".logo");
   let spans = [];
@@ -113,41 +104,13 @@ function setAsciiColor() {
     // iterate through each substring of the section
     let span = document.createElement("span");
     span.innerHTML = i.text;
-    span.className = themes[theme][i.type];
-    span.style.fontWeight = "bold";
+    span.className = i.type;
     spans.push(span);
   }
 
   logo.replaceChildren(...spans);
 
-  // update the other portions of the site to match the theme
-  let bg = document.querySelector("body");
-  let html = document.querySelector("html");
-  bg.classList.add(themes[theme]["bg"]);
-  html.classList.add(themes[theme]["bg"]);
-
-  let aList = document.querySelectorAll("a");
-  let containerList = document.querySelectorAll(".container");
-  let iconList = document.querySelectorAll(".icon");
-  let keyList = document.querySelectorAll(".key");
-  let valList = document.querySelectorAll(".val");
-
-  for (let elem of aList) {
-    elem.classList.add(themes[theme]["a"]);
-  }
-  for (let elem of containerList) {
-    elem.classList.add(themes[theme]["container"]);
-  }
-  for (let elem of iconList) {
-    elem.classList.add(`${themes[theme]["key"]}-filter`);
-  }
-  for (let elem of keyList) {
-    elem.classList.add(themes[theme]["key"]);
-    elem.style.fontWeight = "bolder";
-  }
-  for (let elem of valList) {
-    elem.classList.add(themes[theme]["val"]);
-  }
+  document.documentElement.classList.add(theme);
 }
 
 // test lines below
@@ -221,6 +184,7 @@ function setNavigation() {
     });
   };
 
+  // set the terminal effect on the first nav on pageload
   navList[0].classList.add("highlighted");
 
   // cast to array from the nodeList
@@ -247,8 +211,6 @@ function setNavigation() {
   // also - using window instead of nav elem as root due to
   // keydown requiring focus
   window.addEventListener("keydown", (e) => {
-    // and find the index of the current highlight
-
     // handle index updating intelligently
     switch (e.key) {
       case "k":
@@ -287,7 +249,10 @@ function setNavigation() {
 
 // startup logic once the page loads
 window.addEventListener("load", () => {
-  setAsciiColor();
+  // check for light vs dark mode
+  // also check for holidays/fun themes
+  let theme = checkTheme();
+  setAsciiColor(theme);
   setUptime();
   setNavigation();
 });
