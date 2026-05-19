@@ -14,14 +14,14 @@ function checkTheme() {
         document.documentElement.classList.remove("light", "dark");
         document.documentElement.classList.add(newTheme);
       }
-    });
+    })
 
-  return initialTheme;
+  document.documentElement.classList.add(initialTheme);
 }
 
 // colorizes the logo based on colorscheme
 // outlined within the function
-function setAsciiColor(theme) {
+function setAsciiColor() {
   // grab ascii logo and create slices
   const d2tw = `
     ::########:.  .:######:..
@@ -109,8 +109,6 @@ function setAsciiColor(theme) {
   }
 
   logo.replaceChildren(...spans);
-
-  document.documentElement.classList.add(theme);
 }
 
 // test lines below
