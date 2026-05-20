@@ -1,23 +1,80 @@
 "use strict";
 
-function checkTheme() {
-  const savedTheme = localStorage.getItem("theme");
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+function checkTheme(today) {
+  let setTheme = (darkPref, theme) => {
 
+    // check today's MMM DD for matches below
+    const dateStr = today.toDateString();
+    const calDate = dateStr.substring(4, 10);
+
+    
+    /* testing */
+    // const calDate = "Jan 01"; 
+
+    const holidays = {
+      "Jan 01": "New Year's Day",
+      "Feb 14": "Valentine's",
+      "Mar 10": "Eid al-Fitr",
+      "Mar 17": "St. Patrick",
+      "Mar 28": "Easter",
+      "Apr 22": "Earth Day",
+      "May 05": "Cinco de Mayo",
+      "Jun 01": "Pride",
+      "Jun 19": "Juneteenth",
+      "Jul 07": "Independence Day",
+      "Oct 12": "Indigenous People's Day",
+      "Oct 31": "Halloween",
+      "Nov 11": "Veterans Day",
+      "Nov 26": "Thanksgiving",
+      "Dec 04": "Hanukkah",
+      "Dec 05": "Hanukkah",
+      "Dec 06": "Hanukkah",
+      "Dec 07": "Hanukkah",
+      "Dec 08": "Hanukkah",
+      "Dec 09": "Hanukkah",
+      "Dec 10": "Hanukkah",
+      "Dec 11": "Hanukkah",
+      "Dec 12": "Hanukkah",
+      "Dec 24": "Christmas Eve",
+      "Dec 25": "Christmas Day",
+      "Dec 26": "Kwanzaa",
+      "Dec 27": "Kwanzaa",
+      "Dec 28": "Kwanzaa",
+      "Dec 29": "Kwanzaa",
+      "Dec 30": "Kwanzaa",
+      "Dec 31": "New Year's Day",
+    };
+
+
+    // handle darkmode preference
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(darkPref);
+
+    const updateTheme = theme || holidays[calDate] || "D2TW";
+    document.documentElement.classList.remove(holidays.values);
+  }
+  // check for dark/light preference 
+  const startDarkPref = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const startDark = (startDarkPref ? "dark" : "light");
+
+  // check for theme preference in storage
+  // default to D2TW logo colors on non-holidays
+  const startTheme = localStorage.getItem("theme");
+
+  // css colors update based on doc elem class list
+  setTheme(startDark, startTheme);
+
+  // event listener to check for dark/light mode changes
   window
     .matchMedia("(prefers-color-scheme: dark)")
     .addEventListener("change", (e) => {
-      if (!localStorage.getItem("theme")) {
-        // Only if no user override
-        const newTheme = e.matches ? "dark" : "light";
-        document.documentElement.classList.remove("light", "dark");
-        document.documentElement.classList.add(newTheme);
-      }
-    })
+        const eDark = e.matches ? "dark" : "light";
+        const eTheme = localStorage.getItem("theme");
 
-  document.documentElement.classList.add(initialTheme);
+        setTheme(eDark, eTheme);
+    })
 }
+
 
 // colorizes the logo based on colorscheme
 // outlined within the function
@@ -118,7 +175,7 @@ function setAsciiColor() {
 // asciiLogoElem.replaceWith(pre);
 
 // populates uptime line on "fastfetch" style printout
-function setUptime() {
+function setUptime(today) {
   let getDifference = (firstDate, secondDate) => {
     const timeUnits = [
       ["years", 12 * 4 * 7 * 24 * 60 * 60 * 1000],
@@ -148,7 +205,6 @@ function setUptime() {
   // start date should represent D2TW opening day
   // or other significant date
   const start = new Date(2026, 2, 22);
-  const today = new Date();
 
   // builds string to display on Uptime line on homepage
   let delta = "";
@@ -249,8 +305,9 @@ function setNavigation() {
 window.addEventListener("load", () => {
   // check for light vs dark mode
   // also check for holidays/fun themes
-  let theme = checkTheme();
-  setAsciiColor(theme);
-  setUptime();
+  const today = new Date();
+  checkTheme(today);
+  setAsciiColor();
+  setUptime(today);
   setNavigation();
 });
