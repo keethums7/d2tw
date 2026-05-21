@@ -51,7 +51,12 @@ function checkTheme(today) {
     document.documentElement.classList.add(darkPref);
 
     const updateTheme = theme || holidays[calDate] || "D2TW";
+
+    // remove all themes from the holidays list above
     document.documentElement.classList.remove(holidays.values);
+    document.documentElement.classList.add(updateTheme);
+
+    document.querySelector("#theme").innerHTML = `${updateTheme} (${darkPref})`;
   }
   // check for dark/light preference 
   const startDarkPref = window.matchMedia("(prefers-color-scheme: dark)").matches;
