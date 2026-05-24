@@ -33,7 +33,7 @@ html.dark .tip {
 	color: var(--_lightGray);
 }
 
-html.dark .highlighted,
-html.dark .tw {
+html.dark .tw, 
+html.dark .highlighted > a {
 	color: var(--_red);
 }

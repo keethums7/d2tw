@@ -4,5 +4,9 @@
 /* Update theme list here
 * from the themes directory
 * for tidiness */
-@import "./themes/light.css";
-@import "./themes/dark.css";
+
+/* dark themes */
+@import "./themes/dark/d2tw.css";
+
+/* light themes */
+@import "./themes/light/d2tw.css";

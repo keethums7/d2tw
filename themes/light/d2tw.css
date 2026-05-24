@@ -23,7 +23,7 @@ html.light a {
 html.light svg,
 html.light .key,
 html.light .handle,  
-html.light .highlighted {
+html.light .highlighted>a {
 	color: var(--_darkBlue);
 }
 

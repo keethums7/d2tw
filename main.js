@@ -1,72 +1,74 @@
 "use strict";
 
 function checkTheme(today) {
-  let setTheme = (darkPref, theme) => {
+  const holidays = {
+    "Jan 01": "newYear",
+    "Feb 14": "valentine",
+    // "Mar 10": "eidAlFitr",
+    "Mar 17": "stPatrick",
+    "Mar 28": "easter",
+    "Apr 22": "earthDay",
+    "May 05": "cincoDeMayo",
+    "Jun 01": "pride",
+    "Jun 19": "juneteenth",
+    "Jul 07": "independence",
+    "Oct 12": "indigenousPeoplesDay",
+    "Oct 31": "halloween",
+    "Nov 11": "veteransDay",
+    "Nov 26": "thanksgiving",
+    "Dec 04": "hanukkah",
+    "Dec 05": "hanukkah",
+    "Dec 06": "hanukkah",
+    "Dec 07": "hanukkah",
+    "Dec 08": "hanukkah",
+    "Dec 09": "hanukkah",
+    "Dec 10": "hanukkah",
+    "Dec 11": "hanukkah",
+    "Dec 12": "hanukkah",
+    "Dec 24": "christmas",
+    "Dec 25": "christmas",
+    "Dec 26": "kwanzaa",
+    "Dec 27": "kwanzaa",
+    "Dec 28": "kwanzaa",
+    "Dec 29": "kwanzaa",
+    "Dec 30": "kwanzaa",
+    "Dec 31": "newYear",
+  };
+
+  const setTheme = (darkPref, theme) => {
 
     // check today's MMM DD for matches below
     const dateStr = today.toDateString();
     const calDate = dateStr.substring(4, 10);
 
-    
-    /* testing */
-    // const calDate = "Jan 01"; 
-
-    const holidays = {
-      "Jan 01": "New Year's Day",
-      "Feb 14": "Valentine's",
-      "Mar 10": "Eid al-Fitr",
-      "Mar 17": "St. Patrick",
-      "Mar 28": "Easter",
-      "Apr 22": "Earth Day",
-      "May 05": "Cinco de Mayo",
-      "Jun 01": "Pride",
-      "Jun 19": "Juneteenth",
-      "Jul 07": "Independence Day",
-      "Oct 12": "Indigenous People's Day",
-      "Oct 31": "Halloween",
-      "Nov 11": "Veterans Day",
-      "Nov 26": "Thanksgiving",
-      "Dec 04": "Hanukkah",
-      "Dec 05": "Hanukkah",
-      "Dec 06": "Hanukkah",
-      "Dec 07": "Hanukkah",
-      "Dec 08": "Hanukkah",
-      "Dec 09": "Hanukkah",
-      "Dec 10": "Hanukkah",
-      "Dec 11": "Hanukkah",
-      "Dec 12": "Hanukkah",
-      "Dec 24": "Christmas Eve",
-      "Dec 25": "Christmas Day",
-      "Dec 26": "Kwanzaa",
-      "Dec 27": "Kwanzaa",
-      "Dec 28": "Kwanzaa",
-      "Dec 29": "Kwanzaa",
-      "Dec 30": "Kwanzaa",
-      "Dec 31": "New Year's Day",
-    };
-
+    /* 
+      * test line - change to different dates 
+      * to test holiday based themes
+    */ 
+    // const calDate = "Dec 31";
 
     // handle darkmode preference
     document.documentElement.classList.remove("light", "dark");
     document.documentElement.classList.add(darkPref);
 
-    const updateTheme = theme || holidays[calDate] || "D2TW";
+    const updateTheme = theme || holidays[calDate] || "d2tw";
+    localStorage.setItem("theme", updateTheme);
 
-    // remove all themes from the holidays list above
+    // clear previous theme classes and update
     document.documentElement.classList.remove(holidays.values);
     document.documentElement.classList.add(updateTheme);
 
-    document.querySelector("#theme").innerHTML = `${updateTheme} (${darkPref})`;
+    // 
+    document.querySelector("#theme").innerHTML = updateTheme;
+    document.querySelector("#darkPref").innerHTML = `(${darkPref})`;
   }
+
   // check for dark/light preference 
   const startDarkPref = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const startDark = (startDarkPref ? "dark" : "light");
 
-  // check for theme preference in storage
-  // default to D2TW logo colors on non-holidays
+  // check for saved theme
   const startTheme = localStorage.getItem("theme");
-
-  // css colors update based on doc elem class list
   setTheme(startDark, startTheme);
 
   // event listener to check for dark/light mode changes
@@ -75,7 +77,6 @@ function checkTheme(today) {
     .addEventListener("change", (e) => {
         const eDark = e.matches ? "dark" : "light";
         const eTheme = localStorage.getItem("theme");
-
         setTheme(eDark, eTheme);
     })
 }
@@ -181,7 +182,7 @@ function setAsciiColor() {
 
 // populates uptime line on "fastfetch" style printout
 function setUptime(today) {
-  let getDifference = (firstDate, secondDate) => {
+  const getDifference = (firstDate, secondDate) => {
     const timeUnits = [
       ["years", 12 * 4 * 7 * 24 * 60 * 60 * 1000],
       ["months", 4 * 7 * 24 * 60 * 60 * 1000],
@@ -234,9 +235,9 @@ function setUptime(today) {
 function setNavigation() {
   // pull the array of navigation elements
   // start with the first element highlighted
-  let navList = document.querySelectorAll(".navigation");
+  const navList = document.querySelectorAll(".navigation");
 
-  let clearList = () => {
+  const clearList = () => {
     navList.forEach((elem) => {
       // ensure other navigation elements stop being highlighted
       elem.classList.remove("highlighted");
@@ -249,7 +250,7 @@ function setNavigation() {
   // cast to array from the nodeList
   // and begin tracking the index
   // of the higlighted element
-  let navArray = [...navList];
+  const navArray = [...navList];
   let index = 0;
 
   // add events to keep terminal cursor effect
@@ -306,7 +307,9 @@ function setNavigation() {
   });
 }
 
-// startup logic once the page loads
+/* 
+ * startup 
+ */
 window.addEventListener("load", () => {
   // check for light vs dark mode
   // also check for holidays/fun themes
