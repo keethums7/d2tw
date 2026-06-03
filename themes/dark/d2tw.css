@@ -11,6 +11,7 @@ html.dark .lead {
 
 html.dark .d2,
 html.dark .val,
+html.dark .navDiv,
 html.dark a {   
 	color: var(--_white);
 }
