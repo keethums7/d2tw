@@ -229,6 +229,17 @@ function setUptime(today) {
   uptimeText.innerHTML = delta;
 }
 
+function updateText(index){
+  let text = document.querySelector(".navDiv"); // grab element to update
+  const textList = [
+    "Down to the Wire is Eugene's premiere techy workspace!",
+    "Insert Contact Us Here",
+    "Insert Products Here",
+    "Insert Services Here"
+  ]
+  text.innerHTML = textList[index];
+}
+
 // add highlighting toggle for terminal cursor effect
 // this also expands the hidden block for the highlighted
 // navigation element
@@ -246,6 +257,7 @@ function setNavigation() {
 
   // set the terminal effect on the first nav on pageload
   navList[0].classList.add("highlighted");
+  updateText(0);
 
   // cast to array from the nodeList
   // and begin tracking the index
@@ -263,6 +275,7 @@ function setNavigation() {
       clearList();
       // now add the highlighted class to the target element
       nav.classList.add("highlighted");
+      updateText(index);
     });
   });
 
@@ -285,6 +298,7 @@ function setNavigation() {
           clearList();
           index--;
           navList[index].classList.add("highlighted");
+          updateText(index);
         }
         break;
       case "j":
@@ -299,6 +313,7 @@ function setNavigation() {
           clearList();
           index++;
           navList[index].classList.add("highlighted");
+          updateText(index);
         }
         break;
       default:
