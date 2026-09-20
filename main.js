@@ -238,6 +238,7 @@ function updateText(index){
     "Insert Services Here"
   ]
   text.innerHTML = textList[index];
+  text.replaceWith(text);
 }
 
 // add highlighting toggle for terminal cursor effect
