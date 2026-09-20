@@ -91,6 +91,7 @@ ul {
 	border-right: .15em red solid;
 	margin: 0 auto;
 	max-width: fit-content;
+	padding-left: 3em;
 	overflow: hidden;
 	white-space: nowrap;
 	animation:
